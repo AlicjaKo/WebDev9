@@ -7,22 +7,27 @@ document.getElementById('start').addEventListener('click', function() {
 
 function setWhen() {
     var when = document.getElementById("when").value;
+    if (when==="") {
+        document.getElementById('error').innerText="Select time";
+    }
+    else {
 
-    document.getElementById('error').innerText="";
+        document.getElementById('error').innerText="";
 
-    localStorage.removeItem('savedEvent');
-    localStorage.setItem('savedEvent', when);
+        localStorage.removeItem('savedEvent');
+        localStorage.setItem('savedEvent', when);
 
 
 
-    countTime(when);
-
-    clearInterval(intervalId);
-
-    
-    intervalId = setInterval(function() {
         countTime(when);
-    }, 1000);
+
+        clearInterval(intervalId);
+
+        
+        intervalId = setInterval(function() {
+            countTime(when);
+        }, 1000);
+    }
 }
 
 function countTime(savedEvent) {
@@ -32,7 +37,7 @@ function countTime(savedEvent) {
 
     if (diference < 0) 
     {
-        document.getElementById('error').innerText = "The past event cannot be saved";
+        document.getElementById('error').innerText = "The event already happened";
     } 
     else 
     {
@@ -56,8 +61,12 @@ function countTime(savedEvent) {
 window.onload = function() {
     var savedEvent = localStorage.getItem('savedEvent');
     if (savedEvent) {
+        // Format the saved event with the desired format
+        var formattedSavedEvent = dayjs(savedEvent).format('YYYY-MM-DD HH:mm');
+        
+        // Display the formatted saved event
         var outputElement = document.getElementById('error');
-        outputElement.textContent = "Saved event: " + savedEvent;
+        outputElement.textContent = "Saved event: " + formattedSavedEvent;
 
         countTime(savedEvent);
 
@@ -66,3 +75,5 @@ window.onload = function() {
         }, 1000);
     }
 };
+
+

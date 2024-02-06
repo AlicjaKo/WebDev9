@@ -17,11 +17,13 @@ body {
     align-items: center;
     justify-content: center;
     height: min-content;
+    justify-self: center;
 }
+
 .body {
     background-color: rgb(8, 35, 59, 0.8);
     padding: 1rem;
-    width: 40rem;
+    min-width: 40rem;
 }
 
 .title {
@@ -58,7 +60,6 @@ h4 {
 .clock {
     background-color: rgb(8, 35, 59, 1);
     padding: 0.7rem;
-    width: 8rem;
 }
 
 h5 {
@@ -77,4 +78,16 @@ input, button {
 
 button:hover, input:focus, input:hover {
     color: rgb(188, 255, 255);
+}
+
+@media (max-width: 750px) {
+    .clock-flex {
+        flex-direction: column;
+    }
+    h1, .clock p{
+        font-size: 4rem;
+    }
+    h4, input, button {
+        font-size: 1rem;
+    }
 }
